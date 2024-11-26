@@ -56,7 +56,7 @@ RUN set -eux; \
 
 # We use master
 RUN set -eux; \
-    git clone -b patch-V1.2 --depth 1 https://github.com/Dr-Lazarus-V2/ModSecurity-nginx.git; \
+    git clone -b fix_response_body --depth 1 https://github.com/airween/ModSecurity-nginx.git; \
     curl -sSL https://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz -o nginx-${NGINX_VERSION}.tar.gz; \
     tar -xzf nginx-${NGINX_VERSION}.tar.gz; \
     cd ./nginx-${NGINX_VERSION}; \
