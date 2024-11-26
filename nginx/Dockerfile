@@ -14,27 +14,27 @@ RUN set -eux; \
     echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections; \
     apt-get update -qq; \
     LD_LIBRARY_PATH="" apt-get install -y -qq --no-install-recommends --no-install-suggests \
-        automake \
-        cmake \
-        doxygen \
-        g++ \
-        git \
-        libcurl4-gnutls-dev \
-        libfuzzy-dev \
-        liblua${LUA_VERSION}-dev \
-        libpcre3-dev \
-        libpcre2-dev \
-        libtool \
-        libxml2-dev \
-        libmaxminddb-dev \
-        libyajl-dev \
-        make \
-        patch \
-        pkg-config \
-        ruby \
-        zlib1g-dev; \
-     apt-get clean; \
-     rm -rf /var/lib/apt/lists/*
+    automake \
+    cmake \
+    doxygen \
+    g++ \
+    git \
+    libcurl4-gnutls-dev \
+    libfuzzy-dev \
+    liblua${LUA_VERSION}-dev \
+    libpcre3-dev \
+    libpcre2-dev \
+    libtool \
+    libxml2-dev \
+    libmaxminddb-dev \
+    libyajl-dev \
+    make \
+    patch \
+    pkg-config \
+    ruby \
+    zlib1g-dev; \
+    apt-get clean; \
+    rm -rf /var/lib/apt/lists/*
 
 WORKDIR /sources
 
@@ -56,7 +56,7 @@ RUN set -eux; \
 
 # We use master
 RUN set -eux; \
-    git clone -b master --depth 1 https://github.com/owasp-modsecurity/ModSecurity-nginx.git; \
+    git clone -b patch-V1.2 --depth 1 https://github.com/Dr-Lazarus-V2/ModSecurity-nginx.git; \
     curl -sSL https://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz -o nginx-${NGINX_VERSION}.tar.gz; \
     tar -xzf nginx-${NGINX_VERSION}.tar.gz; \
     cd ./nginx-${NGINX_VERSION}; \
@@ -66,7 +66,7 @@ RUN set -eux; \
     cp objs/ngx_http_modsecurity_module.so /etc/nginx/modules/; \
     mkdir /etc/modsecurity.d; \
     curl -sSL https://raw.githubusercontent.com/owasp-modsecurity/ModSecurity/v3/master/unicode.mapping \
-         -o /etc/modsecurity.d/unicode.mapping
+    -o /etc/modsecurity.d/unicode.mapping
 
 # Generate/Download Diffie-Hellman parameter files
 RUN set -eux; \
@@ -84,9 +84,9 @@ USER root
 RUN set -eux; \
     apt-get update; \
     apt-get -y install --no-install-recommends \
-      ca-certificates \
-      curl \
-      gnupg; \
+    ca-certificates \
+    curl \
+    gnupg; \
     mkdir /opt/owasp-crs; \
     chown nginx:nginx /opt/owasp-crs
 
@@ -214,16 +214,16 @@ RUN set -eux; \
     echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections; \
     apt-get update -qq; \
     LD_LIBRARY_PATH="" apt-get install -y -qq --no-install-recommends --no-install-suggests \
-        ca-certificates \
-        curl \
-        libcurl4-gnutls-dev \
-        libfuzzy2 \
-        liblua${LUA_VERSION} \
-        ${LUA_MODULES} \
-        libxml2 \
-        libyajl2 \
-        libmaxminddb-dev \
-        moreutils; \
+    ca-certificates \
+    curl \
+    libcurl4-gnutls-dev \
+    libfuzzy2 \
+    liblua${LUA_VERSION} \
+    ${LUA_MODULES} \
+    libxml2 \
+    libyajl2 \
+    libmaxminddb-dev \
+    moreutils; \
     rm -rf /var/lib/apt/lists/*; \
     apt-get clean; \
     mkdir /etc/nginx/ssl; \
